@@ -11,20 +11,21 @@ At the centre of the ARC service are two high performance compute clusters - **a
 For more detailled information on the hardware specifications of these clusters, see the tables below:
 
 .. table::
-        :widths: 5, 25, 15, 20, 20, 15
+        :widths: 5, 25, 10, 25, 15, 15
 
-        +---------+--------------------------------------------------------------------------------+------------+----------------------------------------------------------------------+------------------+---------------------------------------------------------------------------+
-        | Cluster | Description                                                                    | Login Node | Compute Nodes                                                        | Minimum Job Size | Notes:                                                                    |
-        +=========+================================================================================+============+======================================================================+==================+===========================================================================+
-        | arc     | | Our largest compute cluster.                                                 |            | | CPU: 48 core Cascade Lake (Intel Xeon Platinum 8268 CPU @ 2.90GHz) |                  | Non-blocking island size is 2212 cores                                    |
-        |         | | Optimised for large parallel jobs spanning multiple nodes.                   | arc-login  | | Memory: 392GB                                                      | 1 core           |                                                                           |
-        |         | | Scheduler prefers large jobs.                                                |            |                                                                      |                  |                                                                           |
-        |         | | Offers low-latency interconnect (Mellanox HDR 100).                          |            |                                                                      |                  |                                                                           |
-        +---------+--------------------------------------------------------------------------------+------------+----------------------------------------------------------------------+------------------+---------------------------------------------------------------------------+
-        | htc     | | Optimised for single core jobs, and SMP jobs up to one node in size.         |            | | CPUs: mix of Broadwell, Haswell, Cacade Lake                       |                  | Jobs will only be scheduled onto a GPU node if requesting a GPU resource. |
-        |         | | Scheduler prefers small jobs.                                                | htc-login  | | GPU: P100, V100, A100, RTX                                         | 1 core           |                                                                           |
-        |         | | Also catering for jobs requiring resources other than CPU cores (e.g. GPUs). |            |                                                                      |                  |                                                                           |
-        +---------+--------------------------------------------------------------------------------+------------+----------------------------------------------------------------------+------------------+---------------------------------------------------------------------------+
+        +---------+--------------------------------------------------------------------------------+------------+-----------------------------------------------------------------------------------------+------------------+---------------------------------------------------------------------------+
+        | Cluster | Description                                                                    | Login Node | Compute Nodes                                                                           | Minimum Job Size | Notes:                                                                    |
+        +=========+================================================================================+============+=========================================================================================+==================+===========================================================================+
+        | arc     | | Our largest compute cluster.                                                 |            | | CPU: 48 core Cascade Lake (Intel Xeon Platinum 8268 CPU @ 2.90GHz)                    |                  | Non-blocking island size is 2212 cores                                    |
+        |         | | Optimised for large parallel jobs spanning multiple nodes.                   | arc-login  | | Memory: 384 GB                                                                        | 1 core           |                                                                           |
+        |         | | Scheduler prefers large jobs.                                                |            | | or                                                                                    |                  |                                                                           |
+        |         | | Offers low-latency interconnect (Mellanox HDR 100).                          |            | | CPU: 288 core Zen 5c/Turin (AMD EPYC 9825 @ 2.2GHz)                                   |                  |                                                                           |
+        |         |                                                                                |            | | Memory: 2.3 TB                                                                        |                  |                                                                           |   
+        +---------+--------------------------------------------------------------------------------+------------+-----------------------------------------------------------------------------------------+------------------+---------------------------------------------------------------------------+
+        | htc     | | Optimised for single core jobs, and SMP jobs up to one node in size.         |            | | CPUs: mix of Broadwell, Haswell, Cacade Lake, Sapphire/Emerald Rapids, AMD Genoa/Rome |                  | Jobs will only be scheduled onto a GPU node if requesting a GPU resource. |
+        |         | | Scheduler prefers small jobs.                                                | htc-login  | | GPU: P100, V100, A100, RTX, H100, L40s                                                | 1 core           |                                                                           |
+        |         | | Also catering for jobs requiring resources other than CPU cores (e.g. GPUs). |            |                                                                                         |                  |                                                                           |
+        +---------+--------------------------------------------------------------------------------+------------+-----------------------------------------------------------------------------------------+------------------+---------------------------------------------------------------------------+
 
 Operating system
 ----------------
@@ -39,16 +40,25 @@ The ARC systems use the Linux Operating System (specifically AlmaLinux 9) which 
 Capability cluster (arc)
 ------------------------
 
-The capability system - cluster name arc - has a total of 305 48 core worker nodes, some of which are co-investment hardware. These machines are available for general use, but may be subject to job time limits and/or may occasionally be reserved for exclusive use of the entity that purchased them.
+The capability system - cluster name arc - has a total of 262× 48 core and 10× 288 core worker nodes, some of which are co-investment hardware. These machines are available for general use, but may be subject to job time limits and/or may occasionally be reserved for exclusive use of the entity that purchased them.
 
-The ARC system offers a total of 14,640 CPU cores.
+The ARC system offers a total of 15,456 CPU cores.
 
-All nodes have the following:
+ARC nodes consist of 2 difference type of node:
 
-- 2x Intel Platinum 8628 CPU. The Platinum 8628 is a 24 core 2.90GHz Cascade Lake CPU. Thus all nodes have 48 CPU cores per node.
-- 384GB memory
-- HDR 100 infiniband interconnect. The fabric has a 4:1 blocking factor with non-blocking islands of 44 nodes (2112 cores).
-- OS is AlmaLinux 9.4. Scheduler is SLURM.
+- 262 worker nodes with:
+
+  - 2x Intel Platinum 8628 CPU. The Platinum 8628 is a 24 core 2.90 GHz Cascade Lake CPU. Thus all nodes have 48 CPU cores per node.
+  - 384 GB memory
+  - HDR 100 infiniband interconnect. The fabric has a 4:1 blocking factor with non-blocking islands of 44 nodes (2112 cores).
+
+- 10 worker nodes with:
+
+  - 2x AMD EPYC 9825 (Zen5c/Turin) CPU (144 cores @ 2.20 GHz per CPU)
+  - 2.3 TB of DDR5 ECC Registered memory (equivalent to 8GB per core)
+  - NDR 400 Infiniband interconnect
+
+The cluster runs AlmaLinux 9.4 OS and is scheduled by SLURM.
 
 Login node for the system is 'arc-login.arc.ox.ac.uk', which allows logins from the University network range (including VPN).
 
@@ -60,19 +70,24 @@ The generally available partitions are:
         +-------------+---------------+------------------+------------------+------------------+
         | Partition   | Nodes / cores | Nodes            | Default run time | Maximum run time |
         +=============+===============+==================+==================+==================+
-        | short       | 256 / 12,288  | | arc-c[046-293] | 1 hour           | 12 hours         |
-        |             |               | | arc-c[300-301] |                  |                  |
+        | short       | 267 / 15,216  | | arc-c[046-293] | 1 hour           | 12 hours         |
+        |             |               | | arc-c[299-301] |                  |                  |
         |             |               | | arc-c[306-311] |                  |                  |
+        |             |               | | arc-c[312-321] |                  |                  |
         +-------------+---------------+------------------+------------------+------------------+
-        | medium      | 242 / 11,616  | arc-c[046-287]   | 12 hours         | 2 days           |
+        | medium      | 261 / 14,928  | | arc-c[046-293] | 12 hours         | 2 days           |
+        |             |               | | arc-c[299-301] |                  |                  |
+        |             |               | | arc-c[312-321] |                  |                  |
         +-------------+---------------+------------------+------------------+------------------+
-        | long        | 242 / 11,616  | arc-c[046-287]   | 1 day            | unlimited        |
+        | long        | 261 / 14,928  | | arc-c[046-287] | 1 day            | unlimited        |
+        |             |               | | arc-c[299-301] |                  |                  |
+        |             |               | | arc-c[312-321] |                  |                  |
         +-------------+---------------+------------------+------------------+------------------+
-        | legacy      | 6 / 288       | arc-c[294-299]   |                  | 10 minutes       |
+        | legacy      | 4 / 192       | arc-c[302-305]   |                  | 10 minutes       |
         +-------------+---------------+------------------+------------------+------------------+
-        | devel       | 2 / 96        | arc-c[302-303]   |                  | 10 minutes       |
+        | devel       | 2 / 96        | arc-c[294-295]   |                  | 10 minutes       |
         +-------------+---------------+------------------+------------------+------------------+
-        | interactive | 2 / 96        | arc-c[304-305]   | 1 hour           | 4 hours          |
+        | interactive | 3 / 144       | arc-c[296-298]   | 1 hour           | 4 hours          |
         +-------------+---------------+------------------+------------------+------------------+
 
 Throughput cluster (htc)

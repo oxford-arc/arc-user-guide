@@ -78,8 +78,7 @@ The generally available partitions are:
 Throughput cluster (htc)
 ------------------------
 
-The throughput system - cluster name htc - currently 95 worker nodes, some of which are co-investment hardware. These machines are available for general use, but may be subject to job time limits and/or may occasionally be reserved for exclusive use of the entity that purchased them. The hardware on the HTC system
-is more heterogeneous than on the ARC system.
+The throughput system - cluster name htc - currently 124 worker nodes, some of which are co-investment hardware. These machines are available for general use, but may be subject to job time limits and/or may occasionally be reserved for exclusive use of the entity that purchased them. The hardware on the HTC system is more heterogeneous than on the ARC system.
 
 49 of the nodes are GPGPU nodes. More information on how to access GPU nodes is available.
 
@@ -98,29 +97,32 @@ Details on the partitions are:
         | Partition   | Nodes / cores,    | Nodes                                    | Default run time | Maximum run time |
         |             | GPUs              |                                          |                  |                  |
         +=============+===================+==========================================+==================+==================+
-        | short       | | 93 / 3,716      | | htc-c[001-046,048-073]                 | 1 hour           | 12 hours         |
+        | short       | | 124 / 7,872     | | htc-c[005-046,048-073]                 | 1 hour           | 12 hours         |
         |             | - 76x V100        | | htc-g[009-018]                         |                  |                  |
-        |             | - 16x A100        | | htc-g[020-038]                         |                  |                  |
-        |             | - 24x RTX8000     | | htc-g[041-043,045-055]                 |                  |                  |
+        |             | - 16x A100        | | htc-g[032-035,037-38]                  |                  |                  |
+        |             | - 24x RTX8000     | | htc-g[041-043,050-055]                 |                  |                  |
         |             | - 12x RTXA6000    | | htc-g[058-060]                         |                  |                  |
-        |             | - 20x P100        |                                          |                  |                  |
+        |             | - 20x P100        | | htc-g[061-084]                         |                  |                  |
         |             | - 52x Titan RTX   |                                          |                  |                  |
+        |             | - 92x L40s        |                                          |                  |                  |
         +-------------+-------------------+------------------------------------------+------------------+------------------+
-        | medium      | | 61 / 2,808      | | htc-c[006-046,048-073]                 | 12 hours         | 2 days           |
-        |             | | - 48x V100      | | htc-g[009-018,045-049]                 |                  |                  |
-        |             | | - 16x A100      |                                          |                  |                  |
+        | medium      | | 101 / 6,888     | | htc-c[006-046,048-073]                 | 12 hours         | 2 days           |
+        |             | | - 48x V100      | | htc-g[009-018]                         |                  |                  |
+        |             | | - 16x A100      | | htc-g[061-084]                         |                  |                  |
         |             | | - 24x RTX8000   |                                          |                  |                  |
+        |             | | - 92x L40s      |                                          |                  |                  |
         +-------------+-------------------+------------------------------------------+------------------+------------------+
-        | long        | | 61 / 2,808      | | htc-c[006-046,048-073]                 | 1 day            | unlimited        |
-        |             | | - 48x V100      | | htc-g[009-018,045-049]                 |                  |                  |
-        |             | | - 16x A100      |                                          |                  |                  |
+        | long        | | 101 / 6,888     | | htc-c[006-046,048-073]                 | 1 day            | unlimited        |
+        |             | | - 48x V100      | | htc-g[009-018]                         |                  |                  |
+        |             | | - 16x A100      | | htc-g[061-084]                         |                  |                  |
         |             | | - 24x RTX8000   |                                          |                  |                  |
+        |             | | - 92x L40s      |                                          |                  |                  |
         +-------------+-------------------+------------------------------------------+------------------+------------------+
-        | devel       | | 1 / 28          | htc-g039                                 |                  | 10 minutes       |
-        |             | | - 4x V100       |                                          |                  |                  |
+        | devel       | | 2 / 80          | htc-g[046-047]                           |                  | 10 minutes       |
+        |             | | - 16x V100      |                                          |                  |                  |
         +-------------+-------------------+------------------------------------------+------------------+------------------+
-        | interactive | | 1 / 28          | htc-g040                                 | 1 hour           | 4 hours          |
-        |             | | - 4x V100       |                                          |                  |                  |
+        | interactive | | 2 / 80          | htc-g[048-049]                           | 1 hour           | 4 hours          |
+        |             | | - 16x V100      |                                          |                  |                  |
         +-------------+-------------------+------------------------------------------+------------------+------------------+
 
 Node CPU details are:
@@ -167,6 +169,8 @@ Node CPU details are:
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-g[059-060] | Intel Platinum 8468 (Sapphire Rapids), 2.1GHz | 96             | 1TB             | HDR100       |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
+        | htc-g[061-084] | Intel Gold 6548N (Emerald Rapids), 2.8GHz     | 64             | 500GB           | NDR400       |
+        +----------------+-----------------------------------------------+----------------+-----------------+--------------+
 
 GPU Resources
 -------------
@@ -211,15 +215,21 @@ Node GPU details are:
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
         | htc-g[059-060] | H100      | 8     | 80GB       | yes | 10,752     | 12.6                    | yes      |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
+        | htc-g[061-084] | L40S      | 4     | 46GB       | yes | 18,176     | 12.9                    | no       |
+        +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
 
 Storage
 -------
 
-Our clusters systems share 2PB of high-performance GPFS storage; this holds per-cluster scratch file systems as well as project data storage.
+Our clusters systems share 2PB of high-performance OnTAP filesystem for project data storage, as well as 1PB of ultra high performance/low latency Weka filesystem for shared scratch storage.
 
-On all nodes with HDR100 interconnect, project data storage is mounted natively; all other nodes access this storage via NFS.
+Project data storage is mounted via NFS on all nodes. On nodes with NDR/HDR interconnect, the scratch filesystem uses that fabric instead.
+
+For more information about the storage, please refer to the `ARC Storage <arc-storage.html>`__ page.
 
 Software
 --------
 
-Users may find the application they are interested in running is already been installed on at least one of the systems.  Users are welcome to request the installation of new applications and libraries or updates to already installed applications via our software request form.
+Users may find the application they are interested in running is already been installed on at least one of the systems. Users are welcome to request the installation of new applications and libraries or updates to already installed applications via our software request form.
+
+For more information, please refer to our `ARC Software Guide <https://arc-software-guide.readthedocs.io>`__.

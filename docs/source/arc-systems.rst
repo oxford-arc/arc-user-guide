@@ -95,7 +95,7 @@ Throughput cluster (htc)
 
 The throughput system - cluster name htc - currently 124 worker nodes, some of which are co-investment hardware. These machines are available for general use, but may be subject to job time limits and/or may occasionally be reserved for exclusive use of the entity that purchased them. The hardware on the HTC system is more heterogeneous than on the ARC system.
 
-49 of the nodes are GPGPU nodes. More information on how to access GPU nodes is available.
+51 of the nodes are GPGPU nodes. More information on how to access GPU nodes is available.
 
 2 of the nodes are High Memory nodes with 3TB of RAM.
 
@@ -158,15 +158,13 @@ Node CPU details are:
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-c[050-055] | AMD EPYC 9634 (Genoa), 2.25GHz                | 168            | 1.5TB           |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
-        | htc-c[056-073] | AMD EPYC 9634 (Genoa), 2.25GHz                | 84             | 1.1TB           |              |
+        | htc-c[056-075] | AMD EPYC 9634 (Genoa), 2.25GHz                | 84             | 1.1TB           |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-g[009-018] | Intel Platinum 8628 (Cascade Lake), 2.90GHz   | 48             | 384GB           | HDR100       |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-g019       | AMD Epyc 7452 (Rome), 2.35GHz                 | 64             | 1TB             |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
-        | htc-g[020-029] | Intel Silver 4210 (Cascade Lake), 2.20GHz     | 20             | 256GB           |              |
-        +----------------+-----------------------------------------------+----------------+-----------------+--------------+
-        | htc-g[030-040] | Intel Gold 5120 (Skylake), 2.20GHz            | 28             | 384GB           |              |
+        | htc-g[032-040] | Intel Gold 5120 (Skylake), 2.20GHz            | 28             | 384GB           |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-g[041-043] | Intel Silver 4112 (Skylake), 2.60GHz          | 8              | 192GB           |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
@@ -204,15 +202,11 @@ Node GPU details are:
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
         | htc-g[015-019] | A100      | 4     | 40GB       | yes | 6912       | 8.0                     | no       |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
-        | htc-g[020-029] | Titan RTX | 4     | 24GB       | no  | 4606       | 7.5                     | pairwise |
+        | htc-g[032-034] | P100      | 4     | 16GB       | yes | 3584       | 6.0                     | no       |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
-        | htc-g[030-034] | P100      | 4     | 16GB       | yes | 3584       | 6.0                     | no       |
-        +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
-        | htc-g[035-036] | V100      | 4     | 16GB       | yes | 5120       | 7.0                     | no       |
+        | htc-g[035]     | V100      | 4     | 16GB       | yes | 5120       | 7.0                     | no       |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
         | htc-g[037-038] | V100      | 4     | 32GB       | yes | 5120       | 7.0                     | yes      |
-        +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
-        | htc-g[039-040] | V100      | 4     | 16GB       | yes | 5120       | 7.0                     | yes      |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
         | htc-g[041-043] | Titan RTX | 4     | 24GB       | yes | 4606       | 7.5                     | pairwise |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
@@ -236,7 +230,7 @@ Node GPU details are:
 Storage
 -------
 
-Our clusters systems share 2PB of high-performance OnTAP filesystem for project data storage, as well as 1PB of ultra high performance/low latency Weka filesystem for shared scratch storage.
+Our clusters systems share 2 PB of high-performance OnTAP filesystem for project data storage, as well as 1PB of ultra high performance/low latency Weka filesystem for shared scratch storage.
 
 Project data storage is mounted via NFS on all nodes. On nodes with NDR/HDR interconnect, the scratch filesystem uses that fabric instead.
 

@@ -19,12 +19,9 @@ Current OS:
     - os_version:9.4
     - os_flavour:AlmaLinux
 
-All available cluster nodes have now been upgraded. Login nodes and graphical login nodes (NoMachine NX) will be updated in the near future.
+All available cluster nodes have now been upgraded. Login nodes and graphical login nodes (NoMachine NX) will be updated in the near future. 
 
-Migration Timeline
-------------------
-
-All nodes including login nodes and nx graphical on both ARC and HTC will be migrated to AlmaLinux 9*. The legacy nodes have been migrated from CentOS 7.7 to CentOS 8.1.
+The legacy nodes have been migrated from CentOS 7.7 to CentOS 8.1.
 
 Alma9 is the default OS in the queueing system and you will need to explicitly specify if you want to use a node with the older version by adding the following line in your submission script:
 

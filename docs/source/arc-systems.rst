@@ -97,11 +97,9 @@ The throughput system - cluster name htc - currently 124 worker nodes, some of w
 
 51 of the nodes are GPGPU nodes. More information on how to access GPU nodes is available.
 
-2 of the nodes are High Memory nodes with 3TB of RAM.
-
 OS is AlmaLinux 9.4. Scheduler is SLURM.
 
-Login node for the system is 'htc-login.arc.ox.ac.uk', which allows logins from the University network range (including VPN).
+Login node for the system is ``htc-login.arc.ox.ac.uk``, which allows logins from the University network range (including VPN).
 
 Details on the partitions are:
 
@@ -113,13 +111,13 @@ Details on the partitions are:
         |             | GPUs              |                                          |                  |                  |
         +=============+===================+==========================================+==================+==================+
         | short       | | 124 / 7,872     | | htc-c[005-046,048-073]                 | 1 hour           | 12 hours         |
-        |             | - 76x V100        | | htc-g[009-018]                         |                  |                  |
-        |             | - 16x A100        | | htc-g[032-035,037-38]                  |                  |                  |
-        |             | - 24x RTX8000     | | htc-g[041-043,050-055]                 |                  |                  |
-        |             | - 12x RTXA6000    | | htc-g[058-060]                         |                  |                  |
-        |             | - 20x P100        | | htc-g[061-084]                         |                  |                  |
-        |             | - 52x Titan RTX   |                                          |                  |                  |
-        |             | - 92x L40s        |                                          |                  |                  |
+        |             | | - 76x V100      | | htc-g[009-018]                         |                  |                  |
+        |             | | - 16x A100      | | htc-g[032-035,037-38]                  |                  |                  |
+        |             | | - 24x RTX8000   | | htc-g[041-043,050-055]                 |                  |                  |
+        |             | | - 12x RTXA6000  | | htc-g[058-060]                         |                  |                  |
+        |             | | - 20x P100      | | htc-g[061-084]                         |                  |                  |
+        |             | | - 52x Titan RTX |                                          |                  |                  |
+        |             | | - 92x L40s      |                                          |                  |                  |
         +-------------+-------------------+------------------------------------------+------------------+------------------+
         | medium      | | 101 / 6,888     | | htc-c[006-046,048-073]                 | 12 hours         | 2 days           |
         |             | | - 48x V100      | | htc-g[009-018]                         |                  |                  |
@@ -151,8 +149,6 @@ Node CPU details are:
         | htc-c[005-006] | Intel Platinum 8628 (Cascade Lake), 2.90GHz   | 96             | 3TB             | HDR100       |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-c[007-046] | Intel Platinum 8628 (Cascade Lake), 2.90GHz   | 48             | 384GB           |              |
-        +----------------+-----------------------------------------------+----------------+-----------------+--------------+
-        | htc-c047       | Intel E7-8860v3 (Haswell), 2.60GHz            | 128            | 6TB             |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
         | htc-c[048-049] | AMD EPYC 9634 (Genoa), 2.25GHz                | 168            | 2.3TB           |              |
         +----------------+-----------------------------------------------+----------------+-----------------+--------------+
@@ -227,10 +223,28 @@ Node GPU details are:
         | htc-g[061-084] | L40S      | 4     | 46GB       | yes | 18,176     | 12.9                    | no       |
         +----------------+-----------+-------+------------+-----+------------+-------------------------+----------+
 
+Memory
+------
+
+On the HTC cluster, there are several generally available high memory nodes:
+
+- 2 nodes with 96 CPU cores & 3 TB memory
+- 4 nodes with 168 CPU cores & 2.2 TB memory
+- 4 nodes with 168 CPU cores & 1.5 TB memory
+- 18 nodes with 84 CPU cores & 1.1 TB memory
+
+You can use the high-memory nodes by adding a value between ``400G`` and ``3000G`` in the ``--mem`` option in your submission script, e.g.:
+
+.. code-block:: bash
+
+        #SBATCH --mem=1500G
+
+to request 1.5 TB
+
 Storage
 -------
 
-Our clusters systems share 2 PB of high-performance OnTAP filesystem for project data storage, as well as 1PB of ultra high performance/low latency Weka filesystem for shared scratch storage.
+Our clusters systems share 2 PB of high-performance OnTAP filesystem for project data storage, as well as 1 PB of ultra high performance/low latency Weka filesystem for shared scratch storage.
 
 Project data storage is mounted via NFS on all nodes. On nodes with NDR/HDR interconnect, the scratch filesystem uses that fabric instead.
 

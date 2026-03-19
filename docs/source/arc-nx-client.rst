@@ -11,6 +11,8 @@ Step 1: After starting the client, click ``Add`` on the first screen to add a ne
   :width: 800
   :alt: Connection configuration - machine address
 
+In the configuration tab, unselect the ``Use UDP communication for multimedia data``
+
 .. image:: images/arc-client03.png
   :width: 800
   :alt: Connection configuration - UDP setting
@@ -19,7 +21,7 @@ Click "Add" in the top left to save the connection.
 
 .. image:: images/arc-client04.png
   :width: 800
-  :alt: Connection configuration - UDP setting
+  :alt: Available Machines screen
 
 Step 2: Select the new connection and enter your ARC username and password:
 

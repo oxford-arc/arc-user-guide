@@ -72,7 +72,7 @@ Both clusters have the following time-based scheduling partitions available:
 
 - short (default run time 1hr, maximum run time 12hrs)
 - medium (default run time 12hrs, maximum run time 48hrs)
-- long (default run time 24hrs, no run time limit)
+- long (default run time 24hrs, 30 day run time limit)
 - devel (maximum run time 10 minutes - for batch job testing only) 
 - interactive (maximum run time 24hrs, can oversubscribe, for pre/post-processing and building software)
 

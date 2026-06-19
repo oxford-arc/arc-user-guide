@@ -60,7 +60,7 @@ The following ``#SBATCH`` lines request specific cluster resources:
 
 ``--partition=devel`` requests that this job runs on the ``devel`` partition, which is reserved for testing
 
-``module load mpihello`` The **module load** command is used to make an application environment available to use in your job, in this case the **mpitest** application.
+``module load mpitest`` The **module load** command is used to make an application environment available to use in your job, in this case the **mpitest** application.
 
 ``mpirun mpihello`` This line runs the **mpihello** command using the special **mpirun** wrapper. 
 
